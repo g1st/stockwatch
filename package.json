@@ -1,24 +1,30 @@
 {
   "name": "stockwatch",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start":
+      "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
+    "build": "webpack",
+    "watch": "webpack --watch"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/g1st/stockwatch.git"
-  },
-  "author": "g1st",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/g1st/stockwatch/issues"
-  },
-  "homepage": "https://github.com/g1st/stockwatch#readme",
   "dependencies": {
-    "concurrently": "^3.5.1"
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "highcharts": "^6.0.6",
+    "morgan": "~1.9.0",
+    "pug": "2.0.0-beta11",
+    "serve-favicon": "~2.4.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "concurrently": "^3.5.1",
+    "dotenv": "^5.0.0",
+    "webpack": "^3.11.0"
+  }
 }
