@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start":
-      "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
+    "start": "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
     "build": "webpack",
     "watch": "webpack --watch"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
