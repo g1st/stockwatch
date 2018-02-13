@@ -1,5 +1,5 @@
 import Highcharts from 'highcharts/highstock';
-import getStockData from './getData';
+import getStockData from './getStockData';
 
 var usdtoeur = [1, 2, 3, 4, 5, 6, 5, 4, 3, 9]; // dummy data for now
 var chart; // globally available
@@ -81,24 +81,12 @@ Highcharts.setOptions({
   background2: '#F0F0EA'
 });
 
-// var chart = Highcharts.stockChart('container', {
-//   rangeSelector: {
-//     selected: 1
-//   },
-//   series: [
-//     {
-//       name: 'USD to EUR',
-//       data: usdtoeur // predefined JavaScript array
-//     }
-//   ]
-// });
-
-function drawChart(options) {
+function drawChart(data) {
   Highcharts.stockChart('container', {
     rangeSelector: {
       selected: 1
     },
-    series: options
+    series: data
     // series: [
     //   {
     //     name: 'USD to EUR',
