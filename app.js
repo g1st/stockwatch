@@ -4,10 +4,11 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 const index = require('./routes/index');
-const users = require('./routes/users');
+const stock = require('./routes/stock');
 
 const app = express();
 
@@ -23,8 +24,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Use native promises
+mongoose.Promise = global.Promise;
+// connect db
+mongoose.connect(process.env.mongoDB_uri);
+const db = mongoose.connection;
+db.on('error', () => {
+  console.error('connection error');
+});
+db.on('open', () => {
+  console.log('db connected!');
+});
+
 app.use('/', index);
-app.use('/users', users);
+app.use('/stock', stock);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
