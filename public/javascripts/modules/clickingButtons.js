@@ -5,7 +5,6 @@ const input = document.getElementById('stock-input');
 
 stockForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  console.log(input.value);
 
   axios
     .post('/stock', {
@@ -13,14 +12,17 @@ stockForm.addEventListener('submit', function(e) {
     })
     .then(res => {
       console.log(res);
+
       // stock already in db
       if (res.data.message) {
         alert(res.data.message);
         return;
       }
+
       // prideti callinti API su visom akcijom
     })
     .catch(err => {
-      console.error(err);
+      alert('Invalid Stock Name');
+      // console.error(err);
     });
 });
