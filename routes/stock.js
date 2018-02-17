@@ -28,7 +28,6 @@ router.post('/', async function(req, res, next) {
     try {
       const stockExists = await axios.get(url);
     } catch (error) {
-      // gali buti vieno catch gana, paziet ka returnina galiorkoj ir pagal tai sugaudyt kada invaldi name, o kadan ormalus error?
       return res.status(404).json({ error: `Invalid stock name` });
     }
 
