@@ -84,15 +84,41 @@ Highcharts.setOptions({
 function drawChart(data) {
   Highcharts.stockChart('container', {
     rangeSelector: {
-      selected: 1
+      selected: 4
+    },
+    title: {
+      text: 'Stock watch'
+    },
+    xAxis: {
+      type: 'datetime',
+      dateTimeLabelFormats: {
+        millisecond: '%H:%M:%S.%L',
+        second: '%H:%M:%S',
+        minute: '%H:%M',
+        hour: '%H:%M',
+        day: '%e. %b',
+        week: '%e. %b',
+        month: "%b '%y",
+        year: '%Y'
+      }
+    },
+    yAxis: {
+      labels: {
+        formatter: function() {
+          return this.value + '%';
+        }
+      }
+    },
+    plotOptions: {
+      series: {
+        compare: 'percent'
+      }
+    },
+    tooltip: {
+      pointFormat:
+        '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>${point.y}</b> ({point.change})<br/>'
     },
     series: data
-    // series: [
-    //   {
-    //     name: 'USD to EUR',
-    //     data: usdtoeur // predefined JavaScript array
-    //   }
-    // ]
   });
 }
 

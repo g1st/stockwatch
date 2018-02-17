@@ -6,7 +6,7 @@ moment().format();
 const endDate = moment().format('YYYY-MM-DD');
 
 const startDate = moment(endDate)
-  .subtract(1, 'years')
+  .subtract(2, 'years')
   .format('YYYY-MM-DD');
 
 const getStockData = async () => {
@@ -15,27 +15,29 @@ const getStockData = async () => {
 
     const stocksArr = [];
     stocks.forEach(stock => {
-      const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=tEUBaD69NkzPc6io288M`;
-      stocksArr.push(function() {
-        return axios.get(url);
-      });
+      const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+        process.env.quandl_api_key
+      }`;
+      stocksArr.push(Promise.resolve(axios.get(url)));
     });
 
-    console.log(stocksArr);
+    const options = [];
 
-    // for (const stock of stocks) {
-    //   console.log(stock);
-    // const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=tEUBaD69NkzPc6io288M`;
-    //   const response = await axios.get(url);
-    //   const data = response.data.dataset.data;
-    //   const name = response.data.dataset.dataset_code;
-    //   console.log(data, name);
-    // }
+    await Promise.all(stocksArr)
+      .then(res => {
+        res.forEach(stock => {
+          const oneStock = {
+            name: stock.data.dataset.dataset_code,
+            data: timeToMilliseconds(stock.data.dataset.data)
+          };
+          options.push(oneStock);
+          // console.log(oneStock);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
 
-    // const options = [
-    //   // { name: 'USD to EUR', data: [1, 2, 3, 4, 5, 6, 5, 4, 3, 9] },
-    //   { name, data }
-    // ];
     // draw chart here, when all data fetched
     drawChart(options);
   } catch (error) {
@@ -55,6 +57,12 @@ const getAllStocksFromDb = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+const timeToMilliseconds = data => {
+  return data.map(x => {
+    return [new Date(x[0]).getTime(), x[1]];
+  });
 };
 
 export default getStockData;
