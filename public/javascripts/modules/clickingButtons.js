@@ -1,9 +1,13 @@
 import axios from 'axios';
+import getStockData from './getStockData';
+
+// make connection
+const socket = io.connect('http://localhost:3001');
 
 const stockForm = document.getElementById('stock-form');
 const input = document.getElementById('stock-input');
 
-stockForm.addEventListener('submit', function(e) {
+stockForm.addEventListener('submit', function (e) {
   e.preventDefault();
 
   axios
@@ -18,11 +22,21 @@ stockForm.addEventListener('submit', function(e) {
         alert(res.data.message);
         return;
       }
+      // stock added - update all clients
+      socket.emit('newStock');
+      // add html
 
-      // prideti callinti API su visom akcijom
     })
     .catch(err => {
       alert('Invalid Stock Name');
-      // console.error(err);
+      input.value = '';
     });
 });
+
+socket.on('newStock', data => {
+  getStockData();
+});
+
+// add event listener for remove
+// pridet emiteri 'stockRemoved'
+// tada kur stock removed html manipuliuot su iteration kad dadet diva su akcijos name ir remove buttonu ar isimt

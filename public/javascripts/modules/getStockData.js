@@ -2,11 +2,13 @@ import axios from 'axios';
 import drawChart from './drawChart.js';
 import moment from 'moment';
 moment().format();
+const input = document.getElementById('stock-input');
 
 const endDate = moment().format('YYYY-MM-DD');
 
 const startDate = moment(endDate)
-  .subtract(2, 'years')
+  .subtract(1, 'years')
+  .subtract(1, 'months')
   .format('YYYY-MM-DD');
 
 const getStockData = async () => {
@@ -39,6 +41,7 @@ const getStockData = async () => {
       });
 
     // draw chart here, when all data fetched
+    input.value = '';
     drawChart(options);
   } catch (error) {
     console.log(error);
@@ -48,10 +51,16 @@ const getStockData = async () => {
 const getAllStocksFromDb = async () => {
   try {
     const stocksInDb = await axios.get('stock/all');
-
     const stocksSet = new Set();
     for (const stock of stocksInDb.data.stocks) {
       stocksSet.add(stock.stock);
+    }
+    if (stocksSet.size === 0) {
+      // default stock
+      axios.post('/stock', {
+        stock: 'fb'
+      });
+      stocksSet.add('fb');
     }
     return stocksSet;
   } catch (error) {
