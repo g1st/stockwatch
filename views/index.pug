@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div(id='container' style="width: 100%; height: 400px;")
+  div(id='container' style="max-width: 1200px; height: 400px;")
   form(id="stock-form" action="/stock")
     label(for="stock") Stock's symbol
     input(id="stock-input" name="stock" type="text" required)
