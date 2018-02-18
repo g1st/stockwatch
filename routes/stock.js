@@ -46,6 +46,19 @@ router.post('/', async function(req, res, next) {
   }
 });
 
+// remove stock
+router.post('/remove', async function(req, res) {
+  try {
+    console.log(req.body.stock);
+    await Stock.findOneAndRemove({ stock: req.body.stock });
+    const stocks = await Stock.find({});
+    return res.status(200).json({ data: stocks });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+// get all stocks
 router.get('/all', async function(req, res) {
   try {
     const Stocks = await Stock.find({});
