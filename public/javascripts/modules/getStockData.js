@@ -1,6 +1,7 @@
 import axios from 'axios';
 import drawChart from './drawChart.js';
 import moment from 'moment';
+import drawHTML from './drawHTML';
 moment().format();
 const input = document.getElementById('stock-input');
 
@@ -11,9 +12,10 @@ const startDate = moment(endDate)
   .subtract(1, 'months')
   .format('YYYY-MM-DD');
 
-const getStockData = async () => {
+async function getStockData() {
   try {
     const stocks = await getAllStocksFromDb();
+    // drawHTML(stocks);
 
     const stocksArr = [];
     stocks.forEach(stock => {
@@ -46,7 +48,7 @@ const getStockData = async () => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 const getAllStocksFromDb = async () => {
   try {
@@ -74,4 +76,42 @@ const timeToMilliseconds = data => {
   });
 };
 
-export default getStockData;
+function getOptionsForOneStock(stock) {
+  // call for that one stock and add to options
+  return Promise.resolve(
+    axios
+      .get(
+        `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+          process.env.quandl_api_key
+        }`
+      )
+      .then(res => {
+        return {
+          name: res.data.dataset.dataset_code,
+          data: res.data.dataset.data
+        };
+      })
+      .catch(err => console.log(err))
+  );
+}
+
+function getOptionsForAllStocks(stocks) {
+  return stocks.map(stock => {
+    return Promise.resolve(
+      axios
+        .get(
+          `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+            process.env.quandl_api_key
+          }`
+        )
+        .then(res => {
+          return {
+            name: res.data.dataset.dataset_code,
+            data: res.data.dataset.data
+          };
+        })
+        .catch(err => console.log(err))
+    );
+  });
+}
+export { getStockData, getOptionsForOneStock, getOptionsForAllStocks };

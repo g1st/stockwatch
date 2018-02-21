@@ -2,8 +2,16 @@ extends layout
 
 block content
   div(id='container' style="max-width: 1200px; height: 400px;")
-  form(id="stock-form" action="/stock")
-    label(for="stock") Stock's symbol
-    input(id="stock-input" name="stock" type="text" required)
-    button(type="submit") Add
-  #cards
+  .wrapper
+    form(id="stock-form" action="/stock")
+      label(for="stock") Stock's symbol
+      input(id="stock-input" name="stock" type="text" required)
+      button(type="submit") Add
+    #cards
+        if (stocks)
+          for stock in stocks
+            .card #{stock.stock}
+            button(id=stock.stock) Remove
+  script.
+    let stocksArr = !{stocksArr};
+    let optionsArr = [];

@@ -13,6 +13,7 @@ moment().format();
 router.post('/', async function(req, res, next) {
   try {
     const stockName = req.body.stock;
+    console.log(stockName);
     const currentMonthEnd = moment()
       .endOf('month')
       .format('YYYY-MM-DD');
@@ -31,11 +32,13 @@ router.post('/', async function(req, res, next) {
       return res.status(404).json({ error: `Invalid stock name` });
     }
 
-    const oneStock = await Stock.find({ stock: stockName });
-    if (oneStock.length) {
-      // stock already exsists
-      return res.status(200).json({ message: 'Stock already exists' });
-    }
+    // const oneStock = await Stock.find({ stock: stockName });
+    // if (oneStock.length) {
+    //   // stock already exsists
+    //   return res.status(200).json({
+    //     message: `Stock ${stockName} already exists`
+    //   });
+    // }
     const stock = await new Stock({ stock: stockName }).save();
     const Stocks = await Stock.find({});
 

@@ -1,16 +1,16 @@
 const cards = document.getElementById('cards');
 
 function drawStockCards(stocks) {
-  console.log(stocks, 'in drawHTML');
-  const stocksArr = stocks.data.data;
-  const html = stocksArr
+  // const stocksArr = stocks.data.data;
+  const html = stocks
     .map(stock => {
       // html here
-      return `<div class="card">${stock.stock}</div>
-              <button id="${stock.stock}">Remove</button>`;
+      return `<div class="card">${stock}</div>
+              <button id="${stock}">Remove</button>`;
     })
     .join('');
 
+  console.log(html);
   cards.innerHTML = html;
 }
 
