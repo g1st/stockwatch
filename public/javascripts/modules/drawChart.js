@@ -1,8 +1,7 @@
 import Highcharts from 'highcharts/highstock';
 import getStockData from './getStockData';
 
-var usdtoeur = [1, 2, 3, 4, 5, 6, 5, 4, 3, 9]; // dummy data for now
-var chart; // globally available
+let chart; // globally available
 
 // Highcharts.setOptions({
 //   /**
@@ -87,7 +86,7 @@ function drawChart(data) {
       selected: 4
     },
     title: {
-      text: 'Stock watch'
+      text: 'WATCHSTOCKS'
     },
     xAxis: {
       type: 'datetime',

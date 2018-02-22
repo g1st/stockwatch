@@ -1,5 +1,4 @@
 const axios = require('axios');
-
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
@@ -7,13 +6,10 @@ const Stock = require('../models/stocks');
 const moment = require('moment');
 moment().format();
 
-// url to check if stock exists
-
 /* handle POST stock request */
 router.post('/', async function(req, res, next) {
   try {
     const stockName = req.body.stock;
-    console.log(stockName);
     const currentMonthEnd = moment()
       .endOf('month')
       .format('YYYY-MM-DD');
@@ -52,7 +48,6 @@ router.post('/', async function(req, res, next) {
 // remove stock
 router.post('/remove', async function(req, res) {
   try {
-    console.log(req.body.stock);
     await Stock.findOneAndRemove({ stock: req.body.stock });
     const stocks = await Stock.find({});
     return res.status(200).json({ data: stocks });

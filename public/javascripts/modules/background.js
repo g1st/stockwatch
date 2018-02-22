@@ -1,4 +1,4 @@
-// cia visos db funkcijos kru seivina i db
+import axios from 'axios';
 
 function saveStock(stock) {
   axios
@@ -6,17 +6,21 @@ function saveStock(stock) {
       stock
     })
     .then(res => {
-      console.log(res);
-      input.value = '';
-
-      // stock added - update all clients
-      // socket.emit('newStock', { data: res.data.stocks });
-      // add html
-
-      // drawHTML(res.data.stocks);
+      // return res;
     })
     .catch(err => {
-      alert('Invalid Stock Name');
-      input.value = '';
+      console.log('Invalid Stock Name');
+      console.error(err);
     });
 }
+
+function removeStock(stock) {
+  axios
+    .post('/stock/remove', { stock })
+    .then(res => {
+      // return res;
+    })
+    .catch(err => console.log(err));
+}
+
+export { saveStock, removeStock };

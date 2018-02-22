@@ -88,7 +88,7 @@ function getOptionsForOneStock(stock) {
       .then(res => {
         return {
           name: res.data.dataset.dataset_code,
-          data: res.data.dataset.data
+          data: timeToMilliseconds(res.data.dataset.data)
         };
       })
       .catch(err => console.log(err))
@@ -107,7 +107,7 @@ function getOptionsForAllStocks(stocks) {
         .then(res => {
           return {
             name: res.data.dataset.dataset_code,
-            data: res.data.dataset.data
+            data: timeToMilliseconds(res.data.dataset.data)
           };
         })
         .catch(err => console.log(err))
