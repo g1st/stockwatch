@@ -6,10 +6,12 @@ const Stock = require('../models/stocks');
 const moment = require('moment');
 moment().format();
 
-/* handle POST stock request */
+/* handle POST add stock request */
 router.post('/', async function(req, res, next) {
   try {
     const stockName = req.body.stock;
+
+    // one year back from now
     const currentMonthEnd = moment()
       .endOf('month')
       .format('YYYY-MM-DD');
@@ -28,13 +30,6 @@ router.post('/', async function(req, res, next) {
       return res.status(404).json({ error: `Invalid stock name` });
     }
 
-    // const oneStock = await Stock.find({ stock: stockName });
-    // if (oneStock.length) {
-    //   // stock already exsists
-    //   return res.status(200).json({
-    //     message: `Stock ${stockName} already exists`
-    //   });
-    // }
     const stock = await new Stock({ stock: stockName }).save();
     const Stocks = await Stock.find({});
 
@@ -45,7 +40,7 @@ router.post('/', async function(req, res, next) {
   }
 });
 
-// remove stock
+/* handle POST remove stock request */
 router.post('/remove', async function(req, res) {
   try {
     await Stock.findOneAndRemove({ stock: req.body.stock });
@@ -56,7 +51,7 @@ router.post('/remove', async function(req, res) {
   }
 });
 
-// get all stocks
+/* handle GET all stocks request */
 router.get('/all', async function(req, res) {
   try {
     const Stocks = await Stock.find({});

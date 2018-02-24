@@ -5,7 +5,8 @@
   "scripts": {
     "start": "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
     "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "prod": "concurrently \"npm run build\" \"node ./bin/www\""
   },
   "dependencies": {
     "axios": "^0.17.1",

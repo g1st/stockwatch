@@ -3,10 +3,9 @@ import drawChart from './drawChart.js';
 import moment from 'moment';
 import drawHTML from './drawHTML';
 moment().format();
+
 const input = document.getElementById('stock-input');
-
 const endDate = moment().format('YYYY-MM-DD');
-
 const startDate = moment(endDate)
   .subtract(1, 'years')
   .subtract(1, 'months')
@@ -15,9 +14,8 @@ const startDate = moment(endDate)
 async function getStockData() {
   try {
     const stocks = await getAllStocksFromDb();
-    // drawHTML(stocks);
-
     const stocksArr = [];
+
     stocks.forEach(stock => {
       const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
         process.env.quandl_api_key
@@ -32,18 +30,16 @@ async function getStockData() {
         res.forEach(stock => {
           const oneStock = {
             name: stock.data.dataset.dataset_code,
+            // highcharts want millis
             data: timeToMilliseconds(stock.data.dataset.data)
           };
           options.push(oneStock);
-          // console.log(oneStock);
         });
       })
       .catch(err => {
         console.log(err);
       });
 
-    // draw chart here, when all data fetched
-    input.value = '';
     drawChart(options);
   } catch (error) {
     console.log(error);

@@ -3,28 +3,24 @@ import { getOptionsForAllStocks } from './getStockData';
 import drawChart from './drawChart';
 import drawHTML from './drawHTML';
 import { saveStock } from './background';
+import { socket } from './socketio';
 
 async function onLoad() {
-  if (stocksArr.length === 0) {
+  const length = stocksArr.length;
+  if (length === 0) {
     stocksArr.push('fb');
-
-    // save to db in background (sudet db funkcijas i atksira folderi)
-    // arti baigto esi, paskui emiterius sutvaryt ir tada ant dizaino
-    // axios
-    //   .post('/stock', { stock: 'fb' })
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.error('Invalid Stock Name');
-    //   });
     saveStock('fb');
   }
 
   optionsArr = await Promise.all(getOptionsForAllStocks(stocksArr));
-  console.log(optionsArr);
   drawChart(optionsArr);
   drawHTML(stocksArr);
+
+  // updates all clients when all stocks was removed
+  // and one of clients (re)connected with default stock
+  if (length === 0) {
+    socket.emit('newStock', { optionsArr, stocksArr });
+  }
 }
 
 export default onLoad;

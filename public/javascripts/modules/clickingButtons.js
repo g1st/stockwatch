@@ -4,15 +4,13 @@ import drawHTML from './drawHTML';
 import { getStockData, getOptionsForOneStock } from './getStockData';
 import drawChart from './drawChart';
 import { saveStock, removeStock } from './background';
+import { socket } from './socketio';
 
 const cards = document.getElementById('cards');
-
-// make connection
-const socket = io.connect('http://localhost:3001');
-
 const stockForm = document.getElementById('stock-form');
 const input = document.getElementById('stock-input');
 
+// add stock handler
 stockForm.addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
@@ -21,16 +19,19 @@ stockForm.addEventListener('submit', async function(e) {
     // check if stock already exists
     if (stocksArr.includes(inputStock)) {
       alert('Stock ' + inputStock + ' already exists');
+      input.value = '';
       return;
     }
+
     // get info about current stock
     const stockOptions = await getOptionsForOneStock(inputStock);
+
     if (stockOptions === undefined) {
       alert('Invalid Stock Name');
       return;
     }
 
-    // double click prevention
+    // doubleclick prevention
     if (optionsArr.length > 0) {
       if (!optionsArr.find(stock => stock.name === stockOptions.name)) {
         // get different colors after calling for one stock
@@ -40,11 +41,9 @@ stockForm.addEventListener('submit', async function(e) {
       } else {
         return;
       }
+    } else {
+      optionsArr.push(stockOptions);
     }
-    optionsArr.push(stockOptions);
-
-    // update graph
-    drawChart(optionsArr);
 
     // doubleclick prevention
     if (!stocksArr.includes(inputStock)) {
@@ -52,46 +51,30 @@ stockForm.addEventListener('submit', async function(e) {
     } else {
       return;
     }
+
+    // update graph
+    drawChart(optionsArr);
     // update html
     drawHTML(stocksArr);
+
     input.value = '';
 
     // save stock to db in background
     saveStock(inputStock);
-    // axios
-    //   .post('/stock', {
-    //     stock: inputStock
-    //   })
-    //   .then(res => {
-    //     // input.value = '';
-    //     // stock added - update all clients
-    //     // socket.emit('newStock', { data: res.data.stocks });
-    //     // add html
-    //     // drawHTML(res.data.stocks);
-    //   })
-    //   .catch(err => {
-    //     console.log('Invalid Stock Name');
-    //     console.error(err);
-    //   });
+
+    socket.emit('newStock', { optionsArr, stocksArr });
   } catch (err) {
-    alert('Invalid Stock Nameyyy');
+    alert('Invalid Stock Name');
     console.log(err);
     return;
   }
 });
 
-input.value = '';
-// socket.on('newStock', data => {
-//   getStockData();
-//   drawHTML(data);
-// });
-
-// add event listener for remove
+// remove stock handler
 cards.addEventListener('click', function(e) {
   if (e.target.localName !== 'button') {
     return;
   }
-  // console.log(e.target.localName);
 
   // update graph
   const idxToRemove = optionsArr.findIndex(
@@ -106,13 +89,6 @@ cards.addEventListener('click', function(e) {
 
   // remove from db in background
   removeStock(e.target.id);
-  // axios
-  //   .post('/stock/remove', {
-  //     stock: e.target.id
-  //   })
-  //   .then(res => {
-  //     // socket.emit('newStock', { data: res.data.data });
-  //     return;
-  //   })
-  //   .catch(err => console.log(err));
+
+  socket.emit('goneStock', { optionsArr, stocksArr });
 });

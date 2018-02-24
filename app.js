@@ -45,7 +45,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 mongoose.Promise = global.Promise;
 // connect db
 mongoose.connect(process.env.mongoDB_uri);
+
 const db = mongoose.connection;
+
 db.on('error', () => {
   console.error('connection error');
 });
