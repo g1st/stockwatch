@@ -87,7 +87,9 @@ function getOptionsForOneStock(stock) {
           data: timeToMilliseconds(res.data.dataset.data)
         };
       })
-      .catch(err => console.log(err))
+      .catch(err => {
+        // console.log(err);
+      })
   );
 }
 

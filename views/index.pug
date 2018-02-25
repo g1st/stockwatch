@@ -4,14 +4,15 @@ block content
   div(id='container' style="max-width: 1200px; height: 400px;")
   .wrapper
     form(id="stock-form" action="/stock")
-      label(for="stock") Stock's symbol
-      input(id="stock-input" name="stock" type="text" required)
-      button(type="submit") Add
+      //- label(for="stock") Stock's symbol
+      input(id="stock-input" name="stock" type="text" placeholder="aapl, googl, coke..." required)
+      button(type="submit" class="button button__add") Add Stock
     #cards
         if (stocks)
           for stock in stocks
-            .card #{stock.stock}
-            button(id=stock.stock) Remove
+            .card
+              h2 #{stock.stock}
+              button.button.button__remove(id=stock.stock) Remove
   script.
     let stocksArr = !{stocksArr};
     let optionsArr = [];

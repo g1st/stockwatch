@@ -1,8 +1,93 @@
 body {
-  padding: 50px;
+  padding: 10px 0;
+  margin: 0;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00b7ff;
+.wrapper {
+  max-width: 1200px;
+  margin: 0;
+  padding: 10px 0px;
+}
+
+#stock-form {
+  display: block;
+  background: #f3f3f3;
+  padding: 15px 0;
+  margin-bottom: 5px;
+}
+
+#stock-input {
+  display: block;
+  margin: 0 auto;
+  padding: 6px 4px;
+  /* border-radius: 5px; */
+  border: 1px solid black;
+}
+
+.card {
+  background: #f3f3f3;
+  /* border-radius: 5px; */
+  margin-bottom: 5px;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+h2 {
+  text-align: center;
+  margin: 0;
+  margin-top: -10px;
+  padding-bottom: 10px;
+  /* padding-top: 10px; */
+}
+
+.button {
+  color: #ffffff;
+  font-weight: 700;
+  display: block;
+  margin: 0 auto;
+  width: 160px;
+  padding: 6px 0;
+  border: 1px solid black;
+}
+
+.button__remove {
+  background: #880c0c;
+}
+
+.button__add {
+  background: #1a8f03;
+  border-top: none;
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    padding: 20px 50px;
+  }
+
+  #container {
+    margin: 0 auto;
+  }
+
+  .wrapper {
+    margin: 0 auto;
+    /* display: flex; */
+  }
+
+  #stock-form {
+    padding: 20px;
+  }
+
+  #cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  .card {
+    flex: 1;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
