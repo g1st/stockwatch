@@ -10,6 +10,17 @@ body {
   padding: 10px 0px;
 }
 
+button:hover {
+  color: #000000;
+  cursor: pointer;
+  transition: color .3s ease;
+}
+
+button {
+  color: #ffffff;
+  transition: color .3s ease;
+}
+
 #stock-form {
   display: block;
   background: #f3f3f3;
@@ -64,30 +75,30 @@ h2 {
   body {
     padding: 20px 50px;
   }
-
   #container {
     margin: 0 auto;
   }
-
   .wrapper {
     margin: 0 auto;
     /* display: flex; */
   }
-
   #stock-form {
+    border-radius: 10px;
     padding: 20px;
   }
-
   #cards {
-    width: 100%;
+    /* width: 100% + 40px; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-right: -20px;
+    margin-left: -20px;
   }
-
   .card {
-    flex: 1;
-    margin-left: 20px;
+    margin-top: 25px;
+    flex: 1 1 auto;
     margin-right: 20px;
+    margin-left: 20px;
+    border-radius: 10px;
   }
 }
