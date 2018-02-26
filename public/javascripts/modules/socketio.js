@@ -5,7 +5,6 @@ import drawChart from './drawChart';
 const socket = io.connect('http://localhost:3001');
 
 socket.on('newStock', res => {
-  console.log(res);
   stocksArr = res.data.stocksArr;
   optionsArr = res.data.optionsArr;
 
@@ -16,7 +15,6 @@ socket.on('newStock', res => {
 });
 
 socket.on('goneStock', res => {
-  console.log(res);
   stocksArr = res.data.stocksArr;
   optionsArr = res.data.optionsArr;
 
