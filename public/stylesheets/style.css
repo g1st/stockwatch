@@ -2,6 +2,16 @@ body {
   padding: 10px 0;
   margin: 0;
   font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .wrapper {
@@ -13,12 +23,20 @@ body {
 button:hover {
   color: #000000;
   cursor: pointer;
-  transition: color .3s ease;
+  transition: color .2s ease;
 }
 
 button {
   color: #ffffff;
-  transition: color .3s ease;
+  transition: color .2s ease;
+}
+
+.form-label {
+  display: block;
+  text-align: center;
+  line-height: 2;
+  font-size: 1.1rem;
+  font-weight: 100;
 }
 
 #stock-form {
@@ -34,6 +52,8 @@ button {
   padding: 6px 4px;
   /* border-radius: 5px; */
   border: 1px solid black;
+  width: 240px;
+  min-width: 160px;
 }
 
 .card {
@@ -69,6 +89,12 @@ h2 {
 .button__add {
   background: #1a8f03;
   border-top: none;
+  width: 250px;
+}
+
+footer>p {
+  display: block;
+  text-align: center;
 }
 
 @media screen and (min-width: 800px) {
@@ -100,5 +126,9 @@ h2 {
     margin-right: 20px;
     margin-left: 20px;
     border-radius: 10px;
+  }
+  footer {
+    margin-top: 40px;
+    padding: 15px 0;
   }
 }

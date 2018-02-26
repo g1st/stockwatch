@@ -4,7 +4,7 @@ block content
   div(id='container' style="max-width: 1200px; height: 400px;")
   .wrapper
     form(id="stock-form" action="/stock")
-      //- label(for="stock") Stock's symbol
+      label.form-label Syncs in realtime across clients
       input(id="stock-input" name="stock" type="text" placeholder="aapl, googl, coke..." required)
       button(type="submit" class="button button__add") Add Stock
     #cards
@@ -13,6 +13,9 @@ block content
             .card
               h2 #{stock.stock}
               button.button.button__remove(id=stock.stock) Remove
+  footer
+    p
+      a(href="https://github.com/g1st/stockwatch", title="Github repo") @g1st
   script.
     let stocksArr = !{stocksArr};
     let optionsArr = [];

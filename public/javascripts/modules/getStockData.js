@@ -11,6 +11,7 @@ const startDate = moment(endDate)
   .subtract(1, 'months')
   .format('YYYY-MM-DD');
 
+// kudos to Bolu Ajibawo for a hint https://github.com/ajibs
 const cors = `https://stock-cors.herokuapp.com/`;
 
 async function getStockData() {
