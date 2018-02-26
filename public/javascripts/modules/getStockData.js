@@ -11,13 +11,15 @@ const startDate = moment(endDate)
   .subtract(1, 'months')
   .format('YYYY-MM-DD');
 
+const cors = `https://stock-cors.herokuapp.com/`;
+
 async function getStockData() {
   try {
     const stocks = await getAllStocksFromDb();
     const stocksArr = [];
 
     stocks.forEach(stock => {
-      const url = `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+      const url = `${cors}https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
         process.env.quandl_api_key
       }`;
       stocksArr.push(Promise.resolve(axios.get(url)));
@@ -77,7 +79,7 @@ function getOptionsForOneStock(stock) {
   return Promise.resolve(
     axios
       .get(
-        `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+        `${cors}https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
           process.env.quandl_api_key
         }`
       )
@@ -98,7 +100,7 @@ function getOptionsForAllStocks(stocks) {
     return Promise.resolve(
       axios
         .get(
-          `https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
+          `${cors}https://www.quandl.com/api/v3/datasets/WIKI/${stock}.json?column_index=4&start_date=${startDate}&end_date=${endDate}&collapse=daily&order=asc&api_key=${
             process.env.quandl_api_key
           }`
         )
