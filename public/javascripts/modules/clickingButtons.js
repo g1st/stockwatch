@@ -1,4 +1,5 @@
 import axios from 'axios';
+import sanitizeHtml from 'sanitize-html';
 import getStockData from './getStockData';
 import drawHTML from './drawHTML';
 import { getStockData, getOptionsForOneStock } from './getStockData';
@@ -14,7 +15,7 @@ const input = document.getElementById('stock-input');
 stockForm.addEventListener('submit', async function(e) {
   e.preventDefault();
   try {
-    const inputStock = input.value;
+    const inputStock = sanitizeHtml(input.value);
 
     // check if stock already exists
     if (stocksArr.includes(inputStock)) {
