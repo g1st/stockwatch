@@ -10,6 +10,9 @@ import { socket } from './socketio';
 const cards = document.getElementById('cards');
 const stockForm = document.getElementById('stock-form');
 const input = document.getElementById('stock-input');
+const modal = document.getElementById('modal_info');
+const span = document.getElementsByClassName('close')[0];
+const modal_text = document.getElementsByClassName('modal_text')[0];
 
 // add stock handler
 stockForm.addEventListener('submit', async function(e) {
@@ -19,7 +22,9 @@ stockForm.addEventListener('submit', async function(e) {
 
     // check if stock already exists
     if (stocksArr.includes(inputStock)) {
-      alert('Stock ' + inputStock + ' already exists');
+      // alert('Stock ' + inputStock + ' already exists');
+      modal_text.textContent = 'Stock ' + inputStock + ' already exists';
+      modal.style.display = 'block';
       input.value = '';
       return;
     }
@@ -28,7 +33,9 @@ stockForm.addEventListener('submit', async function(e) {
     const stockOptions = await getOptionsForOneStock(inputStock);
 
     if (stockOptions === undefined) {
-      alert('Invalid Stock Name');
+      // alert('Invalid Stock Name');
+      modal_text.textContent = 'Invalid Stock Name';
+      modal.style.display = 'block';
       return;
     }
 
@@ -65,7 +72,9 @@ stockForm.addEventListener('submit', async function(e) {
 
     socket.emit('newStock', { optionsArr, stocksArr });
   } catch (err) {
-    alert('Invalid Stock Name');
+    // alert('Invalid Stock Name');
+    modal_text.textContent = 'Invalid Stock Name';
+    modal.style.display = 'block';
     console.log(err);
     return;
   }
@@ -92,4 +101,15 @@ cards.addEventListener('click', function(e) {
   removeStock(e.target.id);
 
   socket.emit('goneStock', { optionsArr, stocksArr });
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};
+
+span.addEventListener('click', function(e) {
+  modal.style.display = 'none';
 });
