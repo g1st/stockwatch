@@ -9,7 +9,7 @@ function saveStock(stock) {
       // return res;
     })
     .catch(err => {
-      console.log('Invalid Stock Name');
+      // console.log('Invalid Stock Name');
       console.error(err);
     });
 }
