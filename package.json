@@ -1,7 +1,10 @@
 {
   "name": "stockwatch",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
+  "repository": "https://github.com/g1st/stockwatch.git",
+  "author": "g1st",
+  "license": "MIT",
   "scripts": {
     "start":
       "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
