@@ -23,12 +23,12 @@ a:hover {
 button:hover {
   color: #000000;
   cursor: pointer;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 button {
   color: #ffffff;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
 .form-label {
@@ -50,7 +50,6 @@ button {
   display: block;
   margin: 0 auto;
   padding: 6px 4px;
-  /* border-radius: 5px; */
   border: 1px solid black;
   width: 240px;
   min-width: 160px;
@@ -58,7 +57,6 @@ button {
 
 .card {
   background: #f3f3f3;
-  /* border-radius: 5px; */
   margin-bottom: 5px;
   padding: 20px;
   text-transform: uppercase;
@@ -69,7 +67,6 @@ h2 {
   margin: 0;
   margin-top: -10px;
   padding-bottom: 10px;
-  /* padding-top: 10px; */
 }
 
 .button {
@@ -92,7 +89,7 @@ h2 {
   width: 250px;
 }
 
-footer>p {
+footer > p {
   display: block;
   text-align: center;
 }
@@ -106,14 +103,12 @@ footer>p {
   }
   .wrapper {
     margin: 0 auto;
-    /* display: flex; */
   }
   #stock-form {
     border-radius: 10px;
     padding: 20px;
   }
   #cards {
-    /* width: 100% + 40px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

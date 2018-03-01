@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
+    "start":
+      "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
     "build": "webpack",
     "watch": "webpack --watch",
     "prod": "concurrently \"npm run build\" \"node ./bin/www\""
@@ -20,16 +21,26 @@
     "mongoose": "^5.0.4",
     "morgan": "~1.9.0",
     "pug": "2.0.0-beta11",
+    "sanitize-html": "^1.18.2",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
+    "autoprefixer": "^8.0.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "clean-webpack-plugin": "^0.1.18",
     "concurrently": "^3.5.1",
+    "css-loader": "^0.28.10",
     "dotenv": "^5.0.0",
+    "postcss-loader": "^2.1.1",
+    "style-loader": "^0.20.2",
+    "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^3.11.0"
+  },
+  "browserslist": {
+    "production": ["last 2 version", "ie 9"],
+    "development": ["last 1 version"]
   }
 }
