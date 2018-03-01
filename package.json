@@ -10,7 +10,12 @@
       "concurrently \"DEBUG=stockwatch:* nodemon ./bin/www\" \"npm run watch\"",
     "build": "webpack",
     "watch": "webpack --watch",
-    "prod": "concurrently \"npm run build\" \"node ./bin/www\""
+    "prod": "concurrently \"npm run build\" \"node ./bin/www\"",
+    "postinstall": "npm run build",
+    "go": "node ./bin/www"
+  },
+  "engines": {
+    "node": "9.4.0"
   },
   "dependencies": {
     "axios": "^0.17.1",
